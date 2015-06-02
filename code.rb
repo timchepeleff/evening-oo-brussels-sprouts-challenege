@@ -42,8 +42,6 @@ class Recipe
    puts @name
   end
 
-
-
   def summary
     <<-SUMMARY
      Name: #{name}
@@ -55,11 +53,7 @@ class Recipe
       #{each_instruction}
     SUMMARY
   end
-
-
-
 end
-
 
 name = "Roasted Brussels Sprouts"
 
