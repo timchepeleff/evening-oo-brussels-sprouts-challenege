@@ -1,7 +1,4 @@
-#YOUR CODE GOES HERE
-require "pry"
 class Ingredient
-  attr :quantity, :unit, :name
   def initialize(quantity, unit, name)
     @quantity = quantity
     @unit = unit
@@ -13,46 +10,41 @@ class Ingredient
   end
 end
 
-
 class Recipe
-
+  attr_reader :name
   def initialize(name, instructions, ingredients)
     @name = name
     @instructions = instructions
     @ingredients = ingredients
   end
 
+  def summary
+    <<-SUMMARY
+Name: #{name}
+
+#{each_ingredient}
+
+
+#{each_instruction}
+    SUMMARY
+  end
+
   def each_ingredient
-    puts "Ingredient: "
+    result = "Ingredient: "
     @ingredients.each do |ingredient|
-      puts "- #{ingredient.summary}"
+       result << "\n- #{ingredient.summary}"
     end
+    result
   end
 
   def each_instruction
-    count = 1
-    puts "Instruction: "
-    @instructions.each do |instruction|
-     puts "#{count}. #{instruction}"
-     count += 1
+     result = "Instruction: "
+    @instructions.each_with_index do |instruction, i|
+      result << "\n#{i + 1}. #{instruction}"
    end
+   result
   end
 
-  def name
-   puts @name
-  end
-
-  def summary
-    <<-SUMMARY
-     Name: #{name}
-
-
-      #{each_ingredient}
-
-
-      #{each_instruction}
-    SUMMARY
-  end
 end
 
 name = "Roasted Brussels Sprouts"
@@ -76,6 +68,6 @@ instructions = [
     "Serve and enjoy!"
     ]
 
-
 recipe = Recipe.new(name, instructions, ingredients)
-recipe.summary
+puts recipe.summary
+
